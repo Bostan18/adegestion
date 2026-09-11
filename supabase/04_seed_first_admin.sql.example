@@ -1,0 +1,15 @@
+-- AdeImmo, amorcage du premier administrateur.
+--
+-- Aucun profil n'est cree automatiquement : un compte Supabase Auth sans ligne
+-- dans public.users recoit un 403 de l'API. Le premier admin doit donc etre
+-- insere a la main, les suivants se creent ensuite via POST /api/v1/users.
+--
+-- 1. Creer le compte dans Supabase (Authentication > Users > Add user).
+-- 2. Copier ce fichier sans l'extension .example, remplacer l'email et le nom.
+-- 3. Executer le script dans le SQL Editor du projet.
+
+insert into public.users (id, email, full_name, role)
+select u.id, u.email, 'Prenom Nom', 'admin'
+from auth.users u
+where u.email = 'admin@exemple.ci'
+on conflict (id) do update set role = excluded.role;
