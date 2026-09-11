@@ -1,9 +1,10 @@
 """Configuration de l'application, lue depuis l'environnement."""
 
 from functools import lru_cache
+from typing import Annotated
 
 from pydantic import Field, field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -16,7 +17,12 @@ class Settings(BaseSettings):
     # Application
     environment: str = "development"
     api_v1_prefix: str = "/api/v1"
-    cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
+    # NoDecode : sans cela, pydantic-settings tente un json.loads sur la
+    # variable d'environnement avant le validateur, et "http://localhost:3000"
+    # n'est pas du JSON valide.
+    cors_origins: Annotated[list[str], NoDecode] = Field(
+        default_factory=lambda: ["http://localhost:3000"]
+    )
 
     # Base de donnees
     database_url: str = "postgresql+psycopg://adeimmo:adeimmo@localhost:5432/adeimmo"

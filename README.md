@@ -57,6 +57,17 @@ pytest              # base SQLite temporaire, aucun appel reseau
 ruff check .
 ```
 
+## Flux d'upload des photos
+
+1. Le navigateur compresse l'image (redimension 1600 px max, réencodage WebP
+   qualité 0,8) dans `frontend/src/lib/image.ts`.
+2. Il demande à l'API une URL d'upload signée, qui vérifie le rôle et le bien.
+3. Il téléverse directement vers Supabase Storage, sans passer par l'API.
+4. L'API enregistre le `storage_path` en base et renvoie des URLs signées à la
+   lecture, le bucket restant privé.
+
+La clé de service Supabase ne quitte jamais le serveur.
+
 ## Configuration Supabase
 
 Voir [`supabase/README.md`](supabase/README.md) : migration des tables, policies
