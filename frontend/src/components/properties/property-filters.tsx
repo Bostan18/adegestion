@@ -60,39 +60,42 @@ export function PropertyFilters() {
         />
       </div>
 
-      <Select
-        value={searchParams.get("type") ?? ALL}
-        onValueChange={(value) => applyFilter("type", value)}
-      >
-        <SelectTrigger className="w-[170px]" aria-label="Filtrer par type">
-          <SelectValue placeholder="Type" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value={ALL}>Tous les types</SelectItem>
-          {PROPERTY_TYPES.map((type) => (
-            <SelectItem key={type} value={type}>
-              {PROPERTY_TYPE_LABELS[type]}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      {/* Les deux filtres se partagent la ligne sur telephone. */}
+      <div className="flex w-full gap-3 sm:w-auto">
+        <Select
+          value={searchParams.get("type") ?? ALL}
+          onValueChange={(value) => applyFilter("type", value)}
+        >
+          <SelectTrigger className="flex-1 sm:w-[170px]" aria-label="Filtrer par type">
+            <SelectValue placeholder="Type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value={ALL}>Tous les types</SelectItem>
+            {PROPERTY_TYPES.map((type) => (
+              <SelectItem key={type} value={type}>
+                {PROPERTY_TYPE_LABELS[type]}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
-      <Select
-        value={searchParams.get("status") ?? ALL}
-        onValueChange={(value) => applyFilter("status", value)}
-      >
-        <SelectTrigger className="w-[170px]" aria-label="Filtrer par statut">
-          <SelectValue placeholder="Statut" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value={ALL}>Tous les statuts</SelectItem>
-          {PROPERTY_STATUSES.map((status) => (
-            <SelectItem key={status} value={status}>
-              {PROPERTY_STATUS_LABELS[status]}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+        <Select
+          value={searchParams.get("status") ?? ALL}
+          onValueChange={(value) => applyFilter("status", value)}
+        >
+          <SelectTrigger className="flex-1 sm:w-[170px]" aria-label="Filtrer par statut">
+            <SelectValue placeholder="Statut" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value={ALL}>Tous les statuts</SelectItem>
+            {PROPERTY_STATUSES.map((status) => (
+              <SelectItem key={status} value={status}>
+                {PROPERTY_STATUS_LABELS[status]}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
 
       <Button type="submit" variant="secondary">
         Filtrer
