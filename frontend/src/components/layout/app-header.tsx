@@ -15,9 +15,12 @@ export function AppHeader({ user }: { user: User }) {
             <Building2 className="h-5 w-5 text-primary" />
             AdeImmo
           </Link>
-          <nav className="hidden items-center gap-4 text-sm sm:flex">
+          <nav className="flex items-center gap-4 text-sm">
             <Link href="/biens" className="text-muted-foreground transition hover:text-foreground">
               Biens
+            </Link>
+            <Link href="/baux" className="text-muted-foreground transition hover:text-foreground">
+              Baux
             </Link>
           </nav>
         </div>

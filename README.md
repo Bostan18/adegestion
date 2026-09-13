@@ -80,6 +80,6 @@ RLS, bucket de photos et creation du premier administrateur.
 |---|---|
 | Auth et roles | Fait |
 | Biens (properties) et photos | Fait |
-| Baux (leases) | Modele et migration seulement |
+| Baux (leases) | Fait |
 | Paiements (payments) | Modele et migration seulement |
 | Maintenance (maintenance_tickets) | Modele et migration seulement |

@@ -6,6 +6,8 @@ export type PropertyType = "appartement" | "villa" | "terrain" | "bureau" | "com
 
 export type PropertyStatus = "disponible" | "loue" | "en_travaux" | "indisponible";
 
+export type LeaseStatus = "actif" | "termine" | "resilie";
+
 export interface User {
   id: string;
   email: string;
@@ -66,4 +68,36 @@ export interface PhotoUploadTicket {
   storage_path: string;
   token: string;
   signed_url: string;
+}
+
+export interface LeasePropertySummary {
+  id: string;
+  title: string;
+  type: PropertyType;
+  city: string;
+}
+
+export interface Lease {
+  id: string;
+  property_id: string;
+  tenant_name: string;
+  tenant_contact: string | null;
+  start_date: string;
+  end_date: string | null;
+  rent_amount: string;
+  deposit_amount: string | null;
+  status: LeaseStatus;
+  created_at: string;
+  property: LeasePropertySummary | null;
+}
+
+export interface LeaseInput {
+  property_id: string;
+  tenant_name: string;
+  tenant_contact?: string | null;
+  start_date: string;
+  end_date?: string | null;
+  rent_amount: string;
+  deposit_amount?: string | null;
+  status: LeaseStatus;
 }

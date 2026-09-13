@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ImageOff } from "lucide-react";
 
-import { PropertyPagination } from "@/components/properties/property-pagination";
+import { Pagination } from "@/components/pagination";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import {
@@ -104,7 +104,7 @@ export function PropertyTable({ properties, total, pageSize, currentPage }: Prop
       </Card>
 
       {lastPage > 1 ? (
-        <PropertyPagination currentPage={currentPage} lastPage={lastPage} />
+        <Pagination basePath="/biens" currentPage={currentPage} lastPage={lastPage} />
       ) : null}
     </div>
   );

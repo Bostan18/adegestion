@@ -1,4 +1,4 @@
-import type { PropertyStatus, PropertyType, UserRole } from "@/types/api";
+import type { LeaseStatus, PropertyStatus, PropertyType, UserRole } from "@/types/api";
 
 const currencyFormatter = new Intl.NumberFormat("fr-FR", {
   style: "currency",
@@ -46,21 +46,39 @@ export const PROPERTY_STATUS_LABELS: Record<PropertyStatus, string> = {
   indisponible: "Indisponible",
 };
 
-export const PROPERTY_STATUS_VARIANTS: Record<
-  PropertyStatus,
-  "default" | "secondary" | "destructive" | "outline" | "success" | "warning"
-> = {
+type BadgeVariant = "default" | "secondary" | "destructive" | "outline" | "success" | "warning";
+
+export const PROPERTY_STATUS_VARIANTS: Record<PropertyStatus, BadgeVariant> = {
   disponible: "success",
   loue: "default",
   en_travaux: "warning",
   indisponible: "secondary",
 };
 
+export const LEASE_STATUS_LABELS: Record<LeaseStatus, string> = {
+  actif: "Actif",
+  termine: "Terminé",
+  resilie: "Résilié",
+};
+
+export const LEASE_STATUS_VARIANTS: Record<LeaseStatus, BadgeVariant> = {
+  actif: "success",
+  termine: "secondary",
+  resilie: "destructive",
+};
+
+export const LEASE_STATUSES = Object.keys(LEASE_STATUS_LABELS) as LeaseStatus[];
+
 export const USER_ROLE_LABELS: Record<UserRole, string> = {
   admin: "Administrateur",
   agent: "Agent",
   comptable: "Comptable",
 };
+
+/** Periode d'un bail, la fin restant ouverte tant qu'aucun terme n'est fixe. */
+export function formatPeriod(start: string, end: string | null): string {
+  return end ? `${formatDate(start)} au ${formatDate(end)}` : `depuis le ${formatDate(start)}`;
+}
 
 export const PROPERTY_TYPES = Object.keys(PROPERTY_TYPE_LABELS) as PropertyType[];
 export const PROPERTY_STATUSES = Object.keys(PROPERTY_STATUS_LABELS) as PropertyStatus[];
@@ -73,3 +91,7 @@ export function canManageProperties(role: UserRole | undefined): boolean {
 export function canDeleteProperties(role: UserRole | undefined): boolean {
   return role === "admin";
 }
+
+/** Les baux suivent exactement le meme RBAC que les biens. */
+export const canManageLeases = canManageProperties;
+export const canDeleteLeases = canDeleteProperties;

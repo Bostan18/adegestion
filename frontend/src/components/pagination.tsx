@@ -6,10 +6,12 @@ import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 /** Pagination qui conserve les filtres actifs dans l'URL. */
-export function PropertyPagination({
+export function Pagination({
+  basePath,
   currentPage,
   lastPage,
 }: {
+  basePath: string;
   currentPage: number;
   lastPage: number;
 }) {
@@ -18,7 +20,7 @@ export function PropertyPagination({
   function hrefForPage(page: number): string {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", String(page));
-    return `/biens?${params.toString()}`;
+    return `${basePath}?${params.toString()}`;
   }
 
   const isFirst = currentPage <= 1;
