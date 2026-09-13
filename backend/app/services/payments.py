@@ -12,6 +12,7 @@ bancaire :
   insuffisante serait impossible a rapprocher.
 """
 
+import unicodedata
 import uuid
 from datetime import date
 
@@ -79,9 +80,16 @@ def _reject(message: str) -> None:
 
 
 def build_receipt_filename(payment_id: uuid.UUID, tenant_name: str) -> str:
-    """Nom de fichier lisible pour la quittance telechargee."""
-    slug = "".join(
-        char if char.isalnum() else "-" for char in tenant_name.lower()
-    ).strip("-")
-    slug = "-".join(part for part in slug.split("-") if part)[:40] or "locataire"
-    return f"quittance-{slug}-{str(payment_id)[:8]}.pdf"
+    """Nom de fichier lisible, et strictement ASCII.
+
+    L'en-tete Content-Disposition simple ne transporte pas les accents : sans
+    ce repliage, "Societe Ivoire Conseil" ressort mutile cote navigateur.
+    """
+    sans_accent = (
+        unicodedata.normalize("NFKD", tenant_name)
+        .encode("ascii", "ignore")
+        .decode("ascii")
+    )
+    slug = "".join(char if char.isalnum() else "-" for char in sans_accent.lower())
+    slug = "-".join(part for part in slug.split("-") if part)[:40].strip("-")
+    return f"quittance-{slug or 'locataire'}-{str(payment_id)[:8]}.pdf"

@@ -3,26 +3,33 @@ import { Building2 } from "lucide-react";
 
 import { SignOutButton } from "@/components/layout/sign-out-button";
 import { Badge } from "@/components/ui/badge";
-import { USER_ROLE_LABELS } from "@/lib/format";
+import { USER_ROLE_LABELS, canAccessPayments } from "@/lib/format";
 import type { User } from "@/types/api";
 
+/**
+ * En-tete de l'application.
+ *
+ * Sur telephone, la navigation passe sur une seconde ligne : logo, badge de
+ * role et deconnexion occupent deja toute la largeur, et garder les liens sur
+ * la meme ligne faisait deborder la page horizontalement.
+ */
 export function AppHeader({ user }: { user: User }) {
+  const links = [
+    { href: "/biens", label: "Biens" },
+    { href: "/baux", label: "Baux" },
+    // L'agent n'a aucun acces aux paiements, l'entree ne lui est pas proposee.
+    ...(canAccessPayments(user.role) ? [{ href: "/paiements", label: "Paiements" }] : []),
+  ];
+
   return (
     <header className="border-b bg-background">
-      <div className="container flex h-16 items-center justify-between gap-4">
+      <div className="container flex h-16 items-center justify-between gap-3">
         <div className="flex items-center gap-6">
           <Link href="/biens" className="flex items-center gap-2 font-semibold">
             <Building2 className="h-5 w-5 text-primary" />
             AdeImmo
           </Link>
-          <nav className="flex items-center gap-4 text-sm">
-            <Link href="/biens" className="text-muted-foreground transition hover:text-foreground">
-              Biens
-            </Link>
-            <Link href="/baux" className="text-muted-foreground transition hover:text-foreground">
-              Baux
-            </Link>
-          </nav>
+          <NavLinks links={links} className="hidden sm:flex" />
         </div>
 
         <div className="flex items-center gap-3">
@@ -34,6 +41,30 @@ export function AppHeader({ user }: { user: User }) {
           <SignOutButton />
         </div>
       </div>
+
+      <NavLinks links={links} className="container flex pb-3 sm:hidden" />
     </header>
+  );
+}
+
+function NavLinks({
+  links,
+  className,
+}: {
+  links: { href: string; label: string }[];
+  className: string;
+}) {
+  return (
+    <nav className={`items-center gap-5 text-sm ${className}`}>
+      {links.map((link) => (
+        <Link
+          key={link.href}
+          href={link.href}
+          className="text-muted-foreground transition hover:text-foreground"
+        >
+          {link.label}
+        </Link>
+      ))}
+    </nav>
   );
 }

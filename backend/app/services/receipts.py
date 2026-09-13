@@ -15,13 +15,14 @@ from fpdf import FPDF
 
 from app.models.enums import PaymentMethod, PaymentStatus
 from app.models.payment import Payment
+from app.schemas.common import normalize_amount
 
 AGENCY_NAME = "AdeImmo"
 
 PAYMENT_METHOD_LABELS: dict[str, str] = {
-    PaymentMethod.ESPECES: "Especes",
+    PaymentMethod.ESPECES: "Espèces",
     PaymentMethod.VIREMENT_BANCAIRE: "Virement bancaire",
-    PaymentMethod.CHEQUE: "Cheque",
+    PaymentMethod.CHEQUE: "Chèque",
     PaymentMethod.MOBILE_MONEY_ORANGE: "Orange Money",
     PaymentMethod.MOBILE_MONEY_MTN: "MTN Mobile Money",
     PaymentMethod.MOBILE_MONEY_MOOV: "Moov Money",
@@ -29,10 +30,10 @@ PAYMENT_METHOD_LABELS: dict[str, str] = {
 }
 
 PAYMENT_STATUS_LABELS: dict[str, str] = {
-    PaymentStatus.PAYE: "Paye",
+    PaymentStatus.PAYE: "Payé",
     PaymentStatus.EN_ATTENTE: "En attente",
     PaymentStatus.EN_RETARD: "En retard",
-    PaymentStatus.REJETE: "Rejete",
+    PaymentStatus.REJETE: "Rejeté",
 }
 
 
@@ -74,7 +75,7 @@ def build_receipt_pdf(payment: Payment) -> bytes:
     pdf.cell(
         0,
         6,
-        f"Emise le {format_day(date.today())} - reference {str(payment.id)[:8]}",
+        f"Émise le {format_day(date.today())} · référence {str(payment.id)[:8]}",
         new_x="LMARGIN",
         new_y="NEXT",
     )
@@ -86,16 +87,16 @@ def build_receipt_pdf(payment: Payment) -> bytes:
         ("Bien", property_title),
         ("Adresse", property_address),
         (
-            "Periode reglee",
+            "Période réglée",
             f"{format_day(payment.period_start)} au {format_day(payment.period_end)}",
         ),
-        ("Echeance", format_day(payment.due_date)),
+        ("Échéance", format_day(payment.due_date)),
         ("Date d'encaissement", format_day(payment.paid_at)),
         (
             "Mode de paiement",
             PAYMENT_METHOD_LABELS.get(payment.payment_method, payment.payment_method),
         ),
-        ("Reference", payment.reference_number or "-"),
+        ("Référence", payment.reference_number or "-"),
         ("Statut", PAYMENT_STATUS_LABELS.get(payment.status, payment.status)),
     ]
 
@@ -123,8 +124,8 @@ def build_receipt_pdf(payment: Payment) -> bytes:
     pdf.multi_cell(
         0,
         5,
-        "Cette quittance atteste du reglement du loyer pour la periode indiquee. "
-        "Elle ne vaut pas quittance des periodes anterieures.",
+        "Cette quittance atteste du règlement du loyer pour la période indiquée. "
+        "Elle ne vaut pas quittance des périodes antérieures.",
     )
 
     return bytes(pdf.output())
@@ -164,8 +165,8 @@ def build_payments_csv(payments: Iterable[Payment]) -> str:
             payment.period_end.isoformat(),
             lease.tenant_name if lease else "",
             lease.property.title if lease and lease.property else "",
-            # Point decimal, attendu par la plupart des outils bancaires.
-            f"{Decimal(payment.amount):f}",
+            # Forme courte, sans les zeros de fin ajoutes par le driver.
+            f"{normalize_amount(Decimal(payment.amount)):f}",
             PAYMENT_METHOD_LABELS.get(payment.payment_method, payment.payment_method),
             payment.reference_number or "",
             PAYMENT_STATUS_LABELS.get(payment.status, payment.status),

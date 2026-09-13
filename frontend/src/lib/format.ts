@@ -1,4 +1,11 @@
-import type { LeaseStatus, PropertyStatus, PropertyType, UserRole } from "@/types/api";
+import type {
+  LeaseStatus,
+  PaymentMethod,
+  PaymentStatus,
+  PropertyStatus,
+  PropertyType,
+  UserRole,
+} from "@/types/api";
 
 const currencyFormatter = new Intl.NumberFormat("fr-FR", {
   style: "currency",
@@ -69,6 +76,38 @@ export const LEASE_STATUS_VARIANTS: Record<LeaseStatus, BadgeVariant> = {
 
 export const LEASE_STATUSES = Object.keys(LEASE_STATUS_LABELS) as LeaseStatus[];
 
+export const PAYMENT_METHOD_LABELS: Record<PaymentMethod, string> = {
+  especes: "Espèces",
+  virement_bancaire: "Virement bancaire",
+  cheque: "Chèque",
+  mobile_money_orange: "Orange Money",
+  mobile_money_mtn: "MTN Mobile Money",
+  mobile_money_moov: "Moov Money",
+  wave: "Wave",
+};
+
+export const PAYMENT_STATUS_LABELS: Record<PaymentStatus, string> = {
+  paye: "Payé",
+  en_attente: "En attente",
+  en_retard: "En retard",
+  rejete: "Rejeté",
+};
+
+export const PAYMENT_STATUS_VARIANTS: Record<PaymentStatus, BadgeVariant> = {
+  paye: "success",
+  en_attente: "warning",
+  en_retard: "destructive",
+  rejete: "destructive",
+};
+
+export const PAYMENT_METHODS = Object.keys(PAYMENT_METHOD_LABELS) as PaymentMethod[];
+export const PAYMENT_STATUSES = Object.keys(PAYMENT_STATUS_LABELS) as PaymentStatus[];
+
+/** Seul le chèque impose une référence, pour pouvoir tracer un rejet. */
+export function isReferenceRequired(method: PaymentMethod): boolean {
+  return method === "cheque";
+}
+
 export const USER_ROLE_LABELS: Record<UserRole, string> = {
   admin: "Administrateur",
   agent: "Agent",
@@ -95,3 +134,15 @@ export function canDeleteProperties(role: UserRole | undefined): boolean {
 /** Les baux suivent exactement le meme RBAC que les biens. */
 export const canManageLeases = canManageProperties;
 export const canDeleteLeases = canDeleteProperties;
+
+/**
+ * Les paiements sont plus restreints : l'agent n'y accède pas du tout, même en
+ * lecture (voir docs/ARCHITECTURE.md).
+ */
+export function canAccessPayments(role: UserRole | undefined): boolean {
+  return role === "admin" || role === "comptable";
+}
+
+export function canDeletePayments(role: UserRole | undefined): boolean {
+  return role === "admin";
+}

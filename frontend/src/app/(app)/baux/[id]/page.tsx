@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Building2 } from "lucide-react";
 
 import { DeleteLeaseButton } from "@/components/leases/delete-lease-button";
+import { LeasePayments } from "@/components/leases/lease-payments";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,12 +13,13 @@ import {
   LEASE_STATUS_LABELS,
   LEASE_STATUS_VARIANTS,
   PROPERTY_TYPE_LABELS,
+  canAccessPayments,
   canDeleteLeases,
   canManageLeases,
   formatAmount,
   formatDate,
 } from "@/lib/format";
-import type { Lease, User } from "@/types/api";
+import type { Lease, PaymentPage, User } from "@/types/api";
 
 async function loadLease(id: string): Promise<Lease> {
   try {
@@ -35,6 +37,11 @@ export default async function LeaseDetailPage({ params }: { params: { id: string
     serverFetch<User>("/api/v1/me"),
     loadLease(params.id),
   ]);
+
+  // L'agent n'a aucun acces aux paiements, on ne les charge meme pas pour lui.
+  const payments = canAccessPayments(user.role)
+    ? await serverFetch<PaymentPage>(`/api/v1/payments?lease_id=${params.id}&limit=50`)
+    : null;
 
   return (
     <div className="space-y-6">
@@ -112,6 +119,15 @@ export default async function LeaseDetailPage({ params }: { params: { id: string
           </CardContent>
         </Card>
       </div>
+
+      {payments ? (
+        <LeasePayments
+          leaseId={lease.id}
+          payments={payments.items}
+          total={payments.total}
+          encaisse={payments.totals.encaisse}
+        />
+      ) : null}
     </div>
   );
 }

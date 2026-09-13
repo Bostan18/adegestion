@@ -328,6 +328,35 @@ def test_quittance_pdf(client, comptable, auth_headers, sample_lease):
     assert relu.json()["receipt_generated"] is True
 
 
+def test_nom_de_quittance_sans_accent(client, comptable, auth_headers, db, sample_property):
+    """Regression : un en-tete Content-Disposition ne transporte pas d'accents."""
+    from app.models.lease import Lease
+
+    lease = Lease(
+        property_id=sample_property.id,
+        tenant_name="Societe Ivoire Conseil",
+        start_date=date(2026, 1, 1),
+        rent_amount=850000,
+        status="actif",
+    )
+    lease.tenant_name = "Société Ivoire Conseil"
+    db.add(lease)
+    db.commit()
+    db.refresh(lease)
+
+    created = client.post(
+        "/api/v1/payments", json=paiement(lease.id), headers=auth_headers(comptable)
+    ).json()
+
+    response = client.post(
+        f"/api/v1/payments/{created['id']}/receipt", headers=auth_headers(comptable)
+    )
+
+    disposition = response.headers["content-disposition"]
+    assert "societe-ivoire-conseil" in disposition
+    assert disposition.isascii()
+
+
 def test_pas_de_quittance_sur_un_paiement_non_encaisse(
     client, comptable, auth_headers, sample_lease
 ):
@@ -365,7 +394,21 @@ def test_export_csv(client, comptable, auth_headers, sample_lease):
     assert "Koffi N'Guessan" in lignes[1]
     assert "Villa Cocody Angre" in lignes[1]
     assert "CH-4412" in lignes[1]
-    assert "Cheque" in lignes[1]
+    assert "Chèque" in lignes[1]
+
+
+def test_export_csv_montant_sans_zeros_de_fin(client, comptable, auth_headers, sample_lease):
+    """Regression : le driver renvoyait 450000.0000000000 dans l'export."""
+    client.post("/api/v1/payments", json=paiement(sample_lease.id), headers=auth_headers(comptable))
+
+    lignes = (
+        client.get("/api/v1/payments/export", headers=auth_headers(comptable))
+        .content.decode("utf-8-sig")
+        .strip()
+        .split("\r\n")
+    )
+    montant = lignes[1].split(";")[6]
+    assert montant == "450000"
 
 
 def test_export_csv_filtre_par_periode(client, comptable, auth_headers, sample_lease):

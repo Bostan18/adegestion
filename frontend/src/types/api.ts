@@ -8,6 +8,17 @@ export type PropertyStatus = "disponible" | "loue" | "en_travaux" | "indisponibl
 
 export type LeaseStatus = "actif" | "termine" | "resilie";
 
+export type PaymentMethod =
+  | "especes"
+  | "virement_bancaire"
+  | "cheque"
+  | "mobile_money_orange"
+  | "mobile_money_mtn"
+  | "mobile_money_moov"
+  | "wave";
+
+export type PaymentStatus = "paye" | "en_attente" | "en_retard" | "rejete";
+
 export interface User {
   id: string;
   email: string;
@@ -100,4 +111,47 @@ export interface LeaseInput {
   rent_amount: string;
   deposit_amount?: string | null;
   status: LeaseStatus;
+}
+
+export interface PaymentLeaseSummary {
+  id: string;
+  tenant_name: string;
+  property: { id: string; title: string } | null;
+}
+
+export interface Payment {
+  id: string;
+  lease_id: string;
+  amount: string;
+  payment_method: PaymentMethod;
+  reference_number: string | null;
+  period_start: string;
+  period_end: string;
+  due_date: string;
+  paid_at: string | null;
+  status: PaymentStatus;
+  receipt_generated: boolean;
+  created_at: string;
+  is_overdue: boolean;
+  lease: PaymentLeaseSummary | null;
+}
+
+export interface PaymentInput {
+  lease_id: string;
+  amount: string;
+  payment_method: PaymentMethod;
+  reference_number?: string | null;
+  period_start: string;
+  period_end: string;
+  due_date: string;
+  paid_at?: string | null;
+  status: PaymentStatus;
+}
+
+export interface PaymentPage {
+  items: Payment[];
+  total: number;
+  limit: number;
+  offset: number;
+  totals: { encaisse: string; attendu: string };
 }
