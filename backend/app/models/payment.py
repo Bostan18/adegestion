@@ -1,4 +1,4 @@
-"""Paiements de loyers. Module non encore expose par l'API."""
+"""Paiements de loyers."""
 
 import uuid
 from datetime import date
@@ -19,8 +19,14 @@ class Payment(Base, TimestampMixin):
             name="payments_payment_method_check",
         ),
         CheckConstraint(check_expression("status", PaymentStatus), name="payments_status_check"),
+        # Un paiement declare paye doit porter sa date d'encaissement.
+        CheckConstraint(
+            "status <> 'paye' OR paid_at IS NOT NULL",
+            name="payments_paid_at_required_check",
+        ),
         Index("idx_payments_lease_id", "lease_id"),
         Index("idx_payments_status", "status"),
+        Index("idx_payments_due_date", "due_date"),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
@@ -31,7 +37,10 @@ class Payment(Base, TimestampMixin):
     reference_number: Mapped[str | None] = mapped_column(Text, nullable=True)
     period_start: Mapped[date] = mapped_column(Date, nullable=False)
     period_end: Mapped[date] = mapped_column(Date, nullable=False)
-    paid_at: Mapped[date] = mapped_column(Date, nullable=False)
+    # Echeance du loyer. Toujours connue, meme avant encaissement.
+    due_date: Mapped[date] = mapped_column(Date, nullable=False)
+    # Date d'encaissement effectif, vide tant que le paiement n'est pas abouti.
+    paid_at: Mapped[date | None] = mapped_column(Date, nullable=True)
     status: Mapped[str] = mapped_column(Text, nullable=False)
     receipt_generated: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 

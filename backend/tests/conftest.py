@@ -9,7 +9,7 @@ import os
 import tempfile
 import uuid
 from collections.abc import Callable, Iterator
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -33,7 +33,7 @@ from sqlalchemy.orm import Session  # noqa: E402
 from app.core.config import settings  # noqa: E402
 from app.db.session import SessionLocal, engine  # noqa: E402
 from app.main import app  # noqa: E402
-from app.models import Base, Property, PropertyPhoto, User  # noqa: E402
+from app.models import Base, Lease, Property, PropertyPhoto, User  # noqa: E402
 from app.models.enums import UserRole  # noqa: E402
 from app.services.storage import StorageService, get_storage_service  # noqa: E402
 
@@ -175,6 +175,24 @@ def sample_property(db: Session) -> Property:
     db.commit()
     db.refresh(prop)
     return prop
+
+
+@pytest.fixture
+def sample_lease(db: Session, sample_property: Property) -> Lease:
+    lease = Lease(
+        property_id=sample_property.id,
+        tenant_name="Koffi N'Guessan",
+        tenant_contact="+225 07 77 88 99 00",
+        start_date=date(2026, 1, 1),
+        end_date=date(2026, 12, 31),
+        rent_amount=450000,
+        deposit_amount=900000,
+        status="actif",
+    )
+    db.add(lease)
+    db.commit()
+    db.refresh(lease)
+    return lease
 
 
 @pytest.fixture

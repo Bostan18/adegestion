@@ -25,6 +25,12 @@ DATABASE_URL="postgresql+psycopg://postgres.<ref>:<password>@aws-0-eu-north-1.po
 #    puis executer une copie adaptee de 04_seed_first_admin.sql.example
 ```
 
+## Note sur les paiements
+
+Les policies `payments_select` et `payments_write` limitent la table aux roles
+`admin` et `comptable`, ce qui correspond exactement au RBAC de l'API. Aucune
+modification n'est necessaire apres la migration `0002`.
+
 ## Pourquoi une double securite
 
 Les dependances FastAPI (`require_roles`) bloquent les appels a l'API. Les

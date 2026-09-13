@@ -60,10 +60,16 @@ CREATE TABLE payments (
     reference_number TEXT,
     period_start DATE NOT NULL,
     period_end DATE NOT NULL,
-    paid_at DATE NOT NULL,
+    -- Echeance du loyer, toujours connue.
+    due_date DATE NOT NULL,
+    -- Date d'encaissement effectif, vide tant que le paiement n'est pas abouti
+    -- (cheque remis non credite, virement annonce).
+    paid_at DATE,
     status TEXT NOT NULL CHECK (status IN ('paye', 'en_attente', 'en_retard', 'rejete')),
     receipt_generated BOOLEAN DEFAULT false,
-    created_at TIMESTAMPTZ DEFAULT now()
+    created_at TIMESTAMPTZ DEFAULT now(),
+    CONSTRAINT payments_paid_at_required_check
+        CHECK (status <> 'paye' OR paid_at IS NOT NULL)
 );
 
 -- Tickets de maintenance
@@ -84,3 +90,4 @@ CREATE INDEX idx_leases_property_id ON leases(property_id);
 CREATE INDEX idx_payments_lease_id ON payments(lease_id);
 CREATE INDEX idx_maintenance_property_id ON maintenance_tickets(property_id);
 CREATE INDEX idx_payments_status ON payments(status);
+CREATE INDEX idx_payments_due_date ON payments(due_date);
