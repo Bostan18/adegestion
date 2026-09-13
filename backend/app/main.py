@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
-from app.routers import health, properties, users
+from app.routers import health, leases, properties, users
 
 app = FastAPI(
     title="AdeImmo API",
@@ -25,6 +25,7 @@ app.add_middleware(
 app.include_router(health.router)
 app.include_router(users.router, prefix=settings.api_v1_prefix)
 app.include_router(properties.router, prefix=settings.api_v1_prefix)
+app.include_router(leases.router, prefix=settings.api_v1_prefix)
 
 
 @app.get("/", include_in_schema=False)
