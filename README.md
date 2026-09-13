@@ -5,7 +5,8 @@ Backend FastAPI, frontend Next.js 14, base de donnees et authentification Supaba
 
 Le contexte fonctionnel est dans [`CLAUDE.md`](CLAUDE.md), les choix techniques
 dans [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), le schema de reference dans
-[`docs/schema.sql`](docs/schema.sql).
+[`docs/schema.sql`](docs/schema.sql). Les points reportes sont suivis dans
+[`docs/BACKLOG.md`](docs/BACKLOG.md).
 
 ## Structure
 
