@@ -19,6 +19,12 @@ export type PaymentMethod =
 
 export type PaymentStatus = "paye" | "en_attente" | "en_retard" | "rejete";
 
+export type TicketPriority = "basse" | "moyenne" | "haute" | "urgente";
+
+export type TicketStatus = "ouvert" | "en_cours" | "resolu" | "ferme";
+
+export type PhotoKind = "avant" | "apres";
+
 export interface User {
   id: string;
   email: string;
@@ -154,4 +160,65 @@ export interface PaymentPage {
   limit: number;
   offset: number;
   totals: { encaisse: string; attendu: string };
+}
+
+export interface Contractor {
+  id: string;
+  name: string;
+  trade: string | null;
+  contact: string | null;
+  notes: string | null;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface ContractorInput {
+  name: string;
+  trade?: string | null;
+  contact?: string | null;
+  notes?: string | null;
+  is_active: boolean;
+}
+
+export interface MaintenancePhoto {
+  id: string;
+  ticket_id: string;
+  storage_path: string;
+  kind: PhotoKind;
+  created_at: string;
+  url: string | null;
+}
+
+export interface Ticket {
+  id: string;
+  property_id: string;
+  title: string;
+  description: string | null;
+  priority: TicketPriority;
+  status: TicketStatus;
+  contractor_id: string | null;
+  estimated_cost: string | null;
+  actual_cost: string | null;
+  billed_to_owner: boolean;
+  reported_by: string | null;
+  created_at: string;
+  resolved_at: string | null;
+  is_open: boolean;
+  cost_overrun: string | null;
+  property: { id: string; title: string; city: string } | null;
+  reporter: { id: string; full_name: string } | null;
+  contractor: { id: string; name: string; trade: string | null; contact: string | null } | null;
+  photos: MaintenancePhoto[];
+}
+
+export interface TicketInput {
+  property_id: string;
+  title: string;
+  description?: string | null;
+  priority: TicketPriority;
+  status: TicketStatus;
+  contractor_id?: string | null;
+  estimated_cost?: string | null;
+  actual_cost?: string | null;
+  billed_to_owner: boolean;
 }

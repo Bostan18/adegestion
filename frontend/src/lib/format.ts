@@ -4,6 +4,8 @@ import type {
   PaymentStatus,
   PropertyStatus,
   PropertyType,
+  TicketPriority,
+  TicketStatus,
   UserRole,
 } from "@/types/api";
 
@@ -108,6 +110,50 @@ export function isReferenceRequired(method: PaymentMethod): boolean {
   return method === "cheque";
 }
 
+export const TICKET_PRIORITY_LABELS: Record<TicketPriority, string> = {
+  basse: "Basse",
+  moyenne: "Moyenne",
+  haute: "Haute",
+  urgente: "Urgente",
+};
+
+export const TICKET_PRIORITY_VARIANTS: Record<TicketPriority, BadgeVariant> = {
+  basse: "secondary",
+  moyenne: "outline",
+  haute: "warning",
+  urgente: "destructive",
+};
+
+export const TICKET_STATUS_LABELS: Record<TicketStatus, string> = {
+  ouvert: "Ouvert",
+  en_cours: "En cours",
+  resolu: "Résolu",
+  ferme: "Fermé",
+};
+
+export const TICKET_STATUS_VARIANTS: Record<TicketStatus, BadgeVariant> = {
+  ouvert: "destructive",
+  en_cours: "warning",
+  resolu: "success",
+  ferme: "secondary",
+};
+
+export const TICKET_PRIORITIES = Object.keys(TICKET_PRIORITY_LABELS) as TicketPriority[];
+export const TICKET_STATUSES = Object.keys(TICKET_STATUS_LABELS) as TicketStatus[];
+
+/** Un coût réel ne se saisit que sur un ticket dont l'intervention est finie. */
+export function acceptsActualCost(status: TicketStatus): boolean {
+  return status === "resolu" || status === "ferme";
+}
+
+/** Écart entre la facture et le devis, signé et formaté. */
+export function formatCostOverrun(value: string | null): string | null {
+  if (!value) return null;
+  const amount = Number(value);
+  if (Number.isNaN(amount) || amount === 0) return null;
+  return `${amount > 0 ? "+" : ""}${formatAmount(value)}`;
+}
+
 export const USER_ROLE_LABELS: Record<UserRole, string> = {
   admin: "Administrateur",
   agent: "Agent",
@@ -146,3 +192,12 @@ export function canAccessPayments(role: UserRole | undefined): boolean {
 export function canDeletePayments(role: UserRole | undefined): boolean {
   return role === "admin";
 }
+
+/**
+ * Maintenance : les trois rôles déclarent un ticket, car un locataire qui
+ * appelle peut tomber sur n'importe qui dans l'agence. Seuls l'admin et
+ * l'agent le traitent (voir supabase/02_rls_policies.sql).
+ */
+export const canDeclareTickets = (role: UserRole | undefined): boolean => Boolean(role);
+export const canHandleTickets = canManageProperties;
+export const canDeleteTickets = canDeleteProperties;

@@ -186,7 +186,10 @@ def update_ticket(
         ensure_contractor_exists(db, data["contractor_id"])
 
     new_status = str(data.get("status", ticket.status))
-    validate_costs(new_status, data.get("actual_cost", ticket.actual_cost))
+    # Uniquement sur le cout transmis par cette requete : un montant deja
+    # enregistre ne doit pas empecher de rouvrir le ticket.
+    if "actual_cost" in data:
+        validate_costs(new_status, data["actual_cost"])
 
     for field, value in data.items():
         setattr(ticket, field, str(value) if field in {"status", "priority"} else value)

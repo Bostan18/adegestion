@@ -357,6 +357,48 @@ def test_facture_moins_chere_que_le_devis(client, agent, auth_headers, sample_pr
     assert body["cost_overrun"] == "-10000"
 
 
+def test_reouverture_d_un_ticket_avec_cout_reel(client, agent, auth_headers, sample_property):
+    """Regression : la regle de saisie bloquait toute reouverture d'un ticket
+    deja facture, avec un message qui ne decrivait pas l'action de l'agent."""
+    created = client.post(
+        "/api/v1/maintenance",
+        json=ticket(sample_property.id, status="resolu", actual_cost="75000"),
+        headers=auth_headers(agent),
+    ).json()
+    assert created["resolved_at"] is not None
+
+    response = client.patch(
+        f"/api/v1/maintenance/{created['id']}",
+        json={"status": "en_cours"},
+        headers=auth_headers(agent),
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] == "en_cours"
+    assert body["resolved_at"] is None
+    # Le cout deja engage reste, l'argent a bien ete depense.
+    assert body["actual_cost"] == "75000"
+
+
+def test_saisie_d_un_cout_reel_sur_ticket_rouvert_refusee(
+    client, agent, auth_headers, sample_property
+):
+    """La regle tient toujours quand on tente d'ajouter un montant."""
+    created = client.post(
+        "/api/v1/maintenance",
+        json=ticket(sample_property.id, status="en_cours"),
+        headers=auth_headers(agent),
+    ).json()
+
+    response = client.patch(
+        f"/api/v1/maintenance/{created['id']}",
+        json={"actual_cost": "50000"},
+        headers=auth_headers(agent),
+    )
+    assert response.status_code == 422
+
+
 def test_cout_negatif_refuse(client, agent, auth_headers, sample_property):
     response = client.post(
         "/api/v1/maintenance",

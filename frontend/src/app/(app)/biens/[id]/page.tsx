@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 
 import { DeletePropertyButton } from "@/components/properties/delete-property-button";
 import { PropertyLeases } from "@/components/properties/property-leases";
+import { PropertyMaintenance } from "@/components/properties/property-maintenance";
 import { PropertyPhotos } from "@/components/properties/property-photos";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -20,7 +21,7 @@ import {
   formatDate,
   formatSurface,
 } from "@/lib/format";
-import type { Lease, Page, Property, User } from "@/types/api";
+import type { Lease, Page, Property, Ticket, User } from "@/types/api";
 
 interface PageProps {
   params: { id: string };
@@ -38,10 +39,11 @@ async function loadProperty(id: string): Promise<Property> {
 }
 
 export default async function PropertyDetailPage({ params }: PageProps) {
-  const [user, property, leases] = await Promise.all([
+  const [user, property, leases, tickets] = await Promise.all([
     serverFetch<User>("/api/v1/me"),
     loadProperty(params.id),
     serverFetch<Page<Lease>>(`/api/v1/leases?property_id=${params.id}&limit=50`),
+    serverFetch<Page<Ticket>>(`/api/v1/maintenance?property_id=${params.id}&limit=50`),
   ]);
 
   const canManage = canManageProperties(user.role);
@@ -107,6 +109,12 @@ export default async function PropertyDetailPage({ params }: PageProps) {
             leases={leases.items}
             total={leases.total}
             canManage={canManage}
+          />
+
+          <PropertyMaintenance
+            propertyId={property.id}
+            tickets={tickets.items}
+            total={tickets.total}
           />
         </div>
       </div>

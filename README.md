@@ -82,4 +82,4 @@ RLS, bucket de photos et creation du premier administrateur.
 | Biens (properties) et photos | Fait |
 | Baux (leases) | Fait |
 | Paiements (payments) | Fait |
-| Maintenance (maintenance_tickets) | Modele et migration seulement |
+| Maintenance (maintenance_tickets) | Fait, avec prestataires, couts et photos avant/apres |

@@ -19,6 +19,9 @@ export function AppHeader({ user }: { user: User }) {
     { href: "/baux", label: "Baux" },
     // L'agent n'a aucun acces aux paiements, l'entree ne lui est pas proposee.
     ...(canAccessPayments(user.role) ? [{ href: "/paiements", label: "Paiements" }] : []),
+    // Les trois roles ont acces a la maintenance : declarer un ticket est
+    // ouvert a tous, seul le traitement est restreint.
+    { href: "/maintenance", label: "Maintenance" },
   ];
 
   return (

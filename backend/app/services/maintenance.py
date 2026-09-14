@@ -47,7 +47,13 @@ def ensure_contractor_exists(db: Session, contractor_id: uuid.UUID | None) -> No
 
 
 def validate_costs(status: str, actual_cost) -> None:
-    """Un cout reel suppose une intervention terminee."""
+    """Refuse de *saisir* un cout reel sur une intervention non terminee.
+
+    La regle ne porte que sur la saisie. Un cout deja enregistre survit a une
+    reouverture : si une premiere intervention a echoue, l'argent a bien ete
+    depense, et effacer le montant ou bloquer la reouverture serait faux dans
+    les deux cas.
+    """
     if actual_cost is not None and status not in CLOSED_STATUSES:
         raise HTTPException(
             status_code=http_status.HTTP_422_UNPROCESSABLE_ENTITY,
