@@ -72,6 +72,19 @@ CREATE TABLE payments (
         CHECK (status <> 'paye' OR paid_at IS NOT NULL)
 );
 
+-- Prestataires d'intervention (plombiers, electriciens, macons...)
+CREATE TABLE contractors (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    trade TEXT,
+    contact TEXT,
+    notes TEXT,
+    -- Un prestataire avec qui on ne travaille plus est desactive, pas supprime,
+    -- pour ne pas perdre l'historique des tickets.
+    is_active BOOLEAN NOT NULL DEFAULT true,
+    created_at TIMESTAMPTZ DEFAULT now()
+);
+
 -- Tickets de maintenance
 CREATE TABLE maintenance_tickets (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -82,12 +95,30 @@ CREATE TABLE maintenance_tickets (
     priority TEXT NOT NULL CHECK (priority IN ('basse', 'moyenne', 'haute', 'urgente')),
     status TEXT NOT NULL CHECK (status IN ('ouvert', 'en_cours', 'resolu', 'ferme')),
     created_at TIMESTAMPTZ DEFAULT now(),
-    resolved_at TIMESTAMPTZ
+    resolved_at TIMESTAMPTZ,
+    contractor_id UUID REFERENCES contractors(id) ON DELETE SET NULL,
+    -- Devis annonce a l'ouverture, puis facture reelle a la resolution.
+    estimated_cost NUMERIC,
+    actual_cost NUMERIC,
+    billed_to_owner BOOLEAN NOT NULL DEFAULT false
+);
+
+-- Photos des tickets, prises avant ou apres l'intervention
+CREATE TABLE maintenance_photos (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    ticket_id UUID NOT NULL REFERENCES maintenance_tickets(id) ON DELETE CASCADE,
+    storage_path TEXT NOT NULL,
+    kind TEXT NOT NULL DEFAULT 'avant' CHECK (kind IN ('avant', 'apres')),
+    created_at TIMESTAMPTZ DEFAULT now()
 );
 
 -- Index utiles
 CREATE INDEX idx_leases_property_id ON leases(property_id);
 CREATE INDEX idx_payments_lease_id ON payments(lease_id);
 CREATE INDEX idx_maintenance_property_id ON maintenance_tickets(property_id);
+CREATE INDEX idx_maintenance_contractor_id ON maintenance_tickets(contractor_id);
+CREATE INDEX idx_maintenance_status ON maintenance_tickets(status);
+CREATE INDEX idx_maintenance_photos_ticket_id ON maintenance_photos(ticket_id);
+CREATE INDEX idx_contractors_name ON contractors(name);
 CREATE INDEX idx_payments_status ON payments(status);
 CREATE INDEX idx_payments_due_date ON payments(due_date);

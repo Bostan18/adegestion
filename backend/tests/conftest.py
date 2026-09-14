@@ -33,9 +33,20 @@ from sqlalchemy.orm import Session  # noqa: E402
 from app.core.config import settings  # noqa: E402
 from app.db.session import SessionLocal, engine  # noqa: E402
 from app.main import app  # noqa: E402
-from app.models import Base, Lease, Property, PropertyPhoto, User  # noqa: E402
+from app.models import (  # noqa: E402
+    Base,
+    Contractor,
+    Lease,
+    Property,
+    PropertyPhoto,
+    User,
+)
 from app.models.enums import UserRole  # noqa: E402
-from app.services.storage import StorageService, get_storage_service  # noqa: E402
+from app.services.storage import (  # noqa: E402
+    StorageService,
+    get_maintenance_storage_service,
+    get_storage_service,
+)
 
 
 @event.listens_for(Engine, "connect")
@@ -97,6 +108,7 @@ def storage() -> FakeStorageService:
 @pytest.fixture
 def client(storage: FakeStorageService) -> Iterator[TestClient]:
     app.dependency_overrides[get_storage_service] = lambda: storage
+    app.dependency_overrides[get_maintenance_storage_service] = lambda: storage
     with TestClient(app) as test_client:
         yield test_client
     app.dependency_overrides.clear()
@@ -193,6 +205,19 @@ def sample_lease(db: Session, sample_property: Property) -> Lease:
     db.commit()
     db.refresh(lease)
     return lease
+
+
+@pytest.fixture
+def sample_contractor(db: Session) -> Contractor:
+    contractor = Contractor(
+        name="Plomberie Lagune",
+        trade="Plombier",
+        contact="+225 07 45 12 33 22",
+    )
+    db.add(contractor)
+    db.commit()
+    db.refresh(contractor)
+    return contractor
 
 
 @pytest.fixture

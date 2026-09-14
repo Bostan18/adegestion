@@ -26,12 +26,17 @@ class StorageError(Exception):
     """Erreur renvoyee par l'API Storage de Supabase."""
 
 
-def build_storage_path(property_id: uuid.UUID, filename: str) -> str:
-    """Construit un chemin stable et sans collision pour une photo."""
+def build_storage_path(*segments: object, filename: str) -> str:
+    """Chemin stable et sans collision, range sous les segments donnes.
+
+    Exemples : ("properties", bien_id) pour une photo de bien,
+    ("tickets", ticket_id, "avant") pour une photo de maintenance.
+    """
     extension = PurePosixPath(filename).suffix.lower()
     if extension not in _ALLOWED_EXTENSIONS:
         extension = _DEFAULT_EXTENSION
-    return f"properties/{property_id}/{uuid.uuid4().hex}{extension}"
+    prefix = "/".join(str(segment) for segment in segments)
+    return f"{prefix}/{uuid.uuid4().hex}{extension}"
 
 
 class StorageService:
@@ -121,5 +126,14 @@ class StorageService:
 
 
 def get_storage_service() -> StorageService:
-    """Dependance FastAPI, surchargeable dans les tests."""
+    """Storage des photos de biens. Dependance surchargeable dans les tests."""
     return StorageService()
+
+
+def get_maintenance_storage_service() -> StorageService:
+    """Storage des photos de maintenance, dans un bucket distinct.
+
+    Bucket separe plutot qu'un prefixe dans celui des biens : les volumes et la
+    duree de conservation n'ont rien a voir, et les policies pourront diverger.
+    """
+    return StorageService(bucket=settings.supabase_maintenance_bucket)

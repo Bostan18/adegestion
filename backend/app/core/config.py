@@ -36,6 +36,7 @@ class Settings(BaseSettings):
 
     # Storage
     supabase_storage_bucket: str = "property-photos"
+    supabase_maintenance_bucket: str = "maintenance-photos"
     signed_url_expires_in: int = 3600
 
     @field_validator("cors_origins", mode="before")

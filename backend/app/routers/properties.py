@@ -184,7 +184,7 @@ def create_photo_upload_url(
 ) -> PhotoUploadTicket:
     """Le navigateur compresse l'image puis la televerse directement avec ce jeton."""
     _get_property_or_404(db, property_id)
-    storage_path = build_storage_path(property_id, payload.filename)
+    storage_path = build_storage_path("properties", property_id, filename=payload.filename)
     signed_url, token = storage.create_signed_upload_url(storage_path)
     return PhotoUploadTicket(
         bucket=storage.bucket,

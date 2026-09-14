@@ -10,6 +10,7 @@ pointant sur Supabase).
 | `02_rls_policies.sql` | Policies RLS par table et par role |
 | `03_storage.sql` | Bucket prive `property-photos` et policies Storage |
 | `04_seed_first_admin.sql.example` | Modele pour creer le premier administrateur |
+| `05_maintenance.sql` | Policies des tables ajoutees par la migration 0003, bucket `maintenance-photos` |
 
 ## Ordre complet d'installation
 
@@ -19,11 +20,18 @@ cd backend
 DATABASE_URL="postgresql+psycopg://postgres.<ref>:<password>@aws-0-eu-north-1.pooler.supabase.com:5432/postgres" \
   alembic upgrade head
 
-# 2. Scripts SQL 01 a 03 dans le SQL Editor Supabase
+# 2. Scripts SQL 01 a 03, puis 05, dans le SQL Editor Supabase
 
 # 3. Premier admin : creer le compte dans Authentication > Users,
 #    puis executer une copie adaptee de 04_seed_first_admin.sql.example
 ```
+
+## Note sur la maintenance
+
+Les tickets suivent une regle a part : les trois roles peuvent en **declarer**
+un, parce qu'un locataire qui appelle peut tomber sur n'importe qui dans
+l'agence. Seuls l'admin et l'agent les **traitent**. C'est ce que refletent les
+policies `maintenance_insert` et `maintenance_update` de `02_rls_policies.sql`.
 
 ## Note sur les paiements
 
