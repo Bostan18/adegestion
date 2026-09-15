@@ -6,11 +6,13 @@ Backend FastAPI, frontend Next.js 14, base de donnees et authentification Supaba
 Le contexte fonctionnel est dans [`CLAUDE.md`](CLAUDE.md), les choix techniques
 dans [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), le schema de reference dans
 [`docs/schema.sql`](docs/schema.sql). Les points reportes sont suivis dans
-[`docs/BACKLOG.md`](docs/BACKLOG.md).
+[`docs/BACKLOG.md`](docs/BACKLOG.md), les skills de projet dans
+[`docs/SKILLS.md`](docs/SKILLS.md).
 
 ## Structure
 
 ```
+.claude/     Skills de projet (voir docs/SKILLS.md)
 backend/     API FastAPI, modeles SQLAlchemy, migrations Alembic, tests
 frontend/    Next.js 14 App Router, TypeScript, Tailwind, shadcn/ui
 supabase/    Policies RLS, triggers et configuration du Storage
