@@ -67,6 +67,34 @@ utiliser cette skill au-delà de ses playbooks en markdown.
 Le hook de détection automatique livré par impeccable n'a pas été installé. Il
 s'active à la demande avec `/impeccable hooks on`.
 
+## Contexte fourni aux skills de design
+
+Les deux skills de design partent d'une page blanche si on ne leur donne rien,
+et proposent alors une direction visuelle prise dans leur base plutôt que celle
+du projet. Trois fichiers leur servent de point de départ, écrits à partir du
+code existant et non inventés.
+
+| Fichier | Rôle |
+|---|---|
+| [`PRODUCT.md`](../PRODUCT.md) | Vérité produit durable : utilisateurs, rôles, enchaînements métier, contraintes, ce qui est explicitement non décidé. Aucune décision visuelle. |
+| [`DESIGN.md`](../DESIGN.md) | Système visuel **existant** : jetons en frontmatter YAML, puis huit sections au [format DESIGN.md](https://github.com/google-labs-code/design.md). |
+| `.impeccable/design.json` | Annexe machine de `DESIGN.md` : rampes tonales, ombres, mouvement, points de rupture, et huit composants en HTML/CSS autonomes que le panneau de prévisualisation sait rendre. |
+
+`DESIGN.md` documente ce qui est déjà codé, il ne propose rien de neuf. Les
+valeurs viennent de `frontend/src/app/globals.css`, de `tailwind.config.ts` et
+des primitives écrites à la main dans `frontend/src/components/ui/`. Les huit
+extraits HTML/CSS de l'annexe ont été rendus dans un navigateur et comparés à
+l'application avant d'être figés.
+
+Trois points y sont laissés ouverts, faute de réponse de l'agence : le niveau
+d'accessibilité visé, l'existence d'un logo ou d'une charte, et le nom que doit
+porter l'interface. Ils sont marqués comme non décidés dans `PRODUCT.md`, ce qui
+vaut mieux qu'une réponse inventée qu'une skill reprendrait ensuite pour argent
+comptant.
+
+À relire après toute évolution visuelle : un `DESIGN.md` en retard sur le code
+est pire que pas de `DESIGN.md` du tout.
+
 ## Serveurs MCP
 
 Déclarés dans [`.mcp.json`](../.mcp.json) à la racine.

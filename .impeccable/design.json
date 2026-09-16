@@ -1,0 +1,506 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-16T14:04:58Z",
+  "title": "Design System: AdeImmo",
+  "extensions": {
+    "colorMeta": {
+      "teal-profond": {
+        "role": "primary",
+        "displayName": "Teal Profond",
+        "canonical": "hsl(173 80% 26%)",
+        "tonalRamp": [
+          "hsl(173 80% 15%)",
+          "hsl(173 80% 25%)",
+          "hsl(173 80% 35%)",
+          "hsl(173 80% 45%)",
+          "hsl(173 80% 55%)",
+          "hsl(173 80% 68%)",
+          "hsl(173 80% 80%)",
+          "hsl(173 80% 95%)"
+        ]
+      },
+      "teal-clair": {
+        "role": "primary",
+        "displayName": "Teal Clair (thème sombre)",
+        "canonical": "hsl(173 70% 42%)",
+        "tonalRamp": [
+          "hsl(173 70% 15%)",
+          "hsl(173 70% 25%)",
+          "hsl(173 70% 35%)",
+          "hsl(173 70% 45%)",
+          "hsl(173 70% 55%)",
+          "hsl(173 70% 68%)",
+          "hsl(173 70% 80%)",
+          "hsl(173 70% 95%)"
+        ]
+      },
+      "blanc-page": {
+        "role": "neutral",
+        "displayName": "Blanc Page",
+        "canonical": "hsl(0 0% 100%)",
+        "tonalRamp": [
+          "hsl(0 0% 15%)",
+          "hsl(0 0% 25%)",
+          "hsl(0 0% 35%)",
+          "hsl(0 0% 45%)",
+          "hsl(0 0% 55%)",
+          "hsl(0 0% 68%)",
+          "hsl(0 0% 80%)",
+          "hsl(0 0% 95%)"
+        ]
+      },
+      "encre-ardoise": {
+        "role": "neutral",
+        "displayName": "Encre Ardoise",
+        "canonical": "hsl(222 47% 11%)",
+        "tonalRamp": [
+          "hsl(222 47% 15%)",
+          "hsl(222 47% 25%)",
+          "hsl(222 47% 35%)",
+          "hsl(222 47% 45%)",
+          "hsl(222 47% 55%)",
+          "hsl(222 47% 68%)",
+          "hsl(222 47% 80%)",
+          "hsl(222 47% 95%)"
+        ]
+      },
+      "gris-papier": {
+        "role": "neutral",
+        "displayName": "Gris Papier",
+        "canonical": "hsl(210 40% 96%)",
+        "tonalRamp": [
+          "hsl(210 40% 15%)",
+          "hsl(210 40% 25%)",
+          "hsl(210 40% 35%)",
+          "hsl(210 40% 45%)",
+          "hsl(210 40% 55%)",
+          "hsl(210 40% 68%)",
+          "hsl(210 40% 80%)",
+          "hsl(210 40% 95%)"
+        ]
+      },
+      "gris-legende": {
+        "role": "neutral",
+        "displayName": "Gris Légende",
+        "canonical": "hsl(215 16% 47%)",
+        "tonalRamp": [
+          "hsl(215 16% 15%)",
+          "hsl(215 16% 25%)",
+          "hsl(215 16% 35%)",
+          "hsl(215 16% 45%)",
+          "hsl(215 16% 55%)",
+          "hsl(215 16% 68%)",
+          "hsl(215 16% 80%)",
+          "hsl(215 16% 95%)"
+        ]
+      },
+      "trait-gris": {
+        "role": "neutral",
+        "displayName": "Trait Gris",
+        "canonical": "hsl(214 32% 91%)",
+        "tonalRamp": [
+          "hsl(214 32% 15%)",
+          "hsl(214 32% 25%)",
+          "hsl(214 32% 35%)",
+          "hsl(214 32% 45%)",
+          "hsl(214 32% 55%)",
+          "hsl(214 32% 68%)",
+          "hsl(214 32% 80%)",
+          "hsl(214 32% 95%)"
+        ]
+      },
+      "rouge-rejet": {
+        "role": "tertiary",
+        "displayName": "Rouge Rejet",
+        "canonical": "hsl(0 72% 51%)",
+        "tonalRamp": [
+          "hsl(0 72% 15%)",
+          "hsl(0 72% 25%)",
+          "hsl(0 72% 35%)",
+          "hsl(0 72% 45%)",
+          "hsl(0 72% 55%)",
+          "hsl(0 72% 68%)",
+          "hsl(0 72% 80%)",
+          "hsl(0 72% 95%)"
+        ]
+      },
+      "vert-encaisse-fond": {
+        "role": "secondary",
+        "displayName": "Vert Encaissé (fond)",
+        "canonical": "#d1fae5",
+        "tonalRamp": [
+          "#022c22",
+          "#064e3b",
+          "#065f46",
+          "#047857",
+          "#059669",
+          "#34d399",
+          "#a7f3d0",
+          "#ecfdf5"
+        ]
+      },
+      "vert-encaisse-texte": {
+        "role": "secondary",
+        "displayName": "Vert Encaissé (texte)",
+        "canonical": "#065f46",
+        "tonalRamp": [
+          "#022c22",
+          "#064e3b",
+          "#065f46",
+          "#047857",
+          "#059669",
+          "#34d399",
+          "#a7f3d0",
+          "#ecfdf5"
+        ]
+      },
+      "ambre-attente-fond": {
+        "role": "secondary",
+        "displayName": "Ambre Attente (fond)",
+        "canonical": "#fef3c7",
+        "tonalRamp": [
+          "#451a03",
+          "#78350f",
+          "#92400e",
+          "#b45309",
+          "#d97706",
+          "#fbbf24",
+          "#fde68a",
+          "#fffbeb"
+        ]
+      },
+      "ambre-attente-texte": {
+        "role": "secondary",
+        "displayName": "Ambre Attente (texte)",
+        "canonical": "#78350f",
+        "tonalRamp": [
+          "#451a03",
+          "#78350f",
+          "#92400e",
+          "#b45309",
+          "#d97706",
+          "#fbbf24",
+          "#fde68a",
+          "#fffbeb"
+        ]
+      },
+      "nuit-page": {
+        "role": "neutral",
+        "displayName": "Nuit Page",
+        "canonical": "hsl(222 47% 8%)",
+        "tonalRamp": [
+          "hsl(222 47% 15%)",
+          "hsl(222 47% 25%)",
+          "hsl(222 47% 35%)",
+          "hsl(222 47% 45%)",
+          "hsl(222 47% 55%)",
+          "hsl(222 47% 68%)",
+          "hsl(222 47% 80%)",
+          "hsl(222 47% 95%)"
+        ]
+      },
+      "nuit-carte": {
+        "role": "neutral",
+        "displayName": "Nuit Carte",
+        "canonical": "hsl(222 47% 11%)",
+        "tonalRamp": [
+          "hsl(222 47% 15%)",
+          "hsl(222 47% 25%)",
+          "hsl(222 47% 35%)",
+          "hsl(222 47% 45%)",
+          "hsl(222 47% 55%)",
+          "hsl(222 47% 68%)",
+          "hsl(222 47% 80%)",
+          "hsl(222 47% 95%)"
+        ]
+      },
+      "nuit-surface": {
+        "role": "neutral",
+        "displayName": "Nuit Surface",
+        "canonical": "hsl(217 33% 17%)",
+        "tonalRamp": [
+          "hsl(217 33% 15%)",
+          "hsl(217 33% 25%)",
+          "hsl(217 33% 35%)",
+          "hsl(217 33% 45%)",
+          "hsl(217 33% 55%)",
+          "hsl(217 33% 68%)",
+          "hsl(217 33% 80%)",
+          "hsl(217 33% 95%)"
+        ]
+      },
+      "nuit-trait": {
+        "role": "neutral",
+        "displayName": "Nuit Trait",
+        "canonical": "hsl(217 33% 20%)",
+        "tonalRamp": [
+          "hsl(217 33% 15%)",
+          "hsl(217 33% 25%)",
+          "hsl(217 33% 35%)",
+          "hsl(217 33% 45%)",
+          "hsl(217 33% 55%)",
+          "hsl(217 33% 68%)",
+          "hsl(217 33% 80%)",
+          "hsl(217 33% 95%)"
+        ]
+      },
+      "nuit-encre": {
+        "role": "neutral",
+        "displayName": "Nuit Encre",
+        "canonical": "hsl(210 40% 98%)",
+        "tonalRamp": [
+          "hsl(210 40% 15%)",
+          "hsl(210 40% 25%)",
+          "hsl(210 40% 35%)",
+          "hsl(210 40% 45%)",
+          "hsl(210 40% 55%)",
+          "hsl(210 40% 68%)",
+          "hsl(210 40% 80%)",
+          "hsl(210 40% 95%)"
+        ]
+      },
+      "nuit-legende": {
+        "role": "neutral",
+        "displayName": "Nuit Légende",
+        "canonical": "hsl(215 20% 65%)",
+        "tonalRamp": [
+          "hsl(215 20% 15%)",
+          "hsl(215 20% 25%)",
+          "hsl(215 20% 35%)",
+          "hsl(215 20% 45%)",
+          "hsl(215 20% 55%)",
+          "hsl(215 20% 68%)",
+          "hsl(215 20% 80%)",
+          "hsl(215 20% 95%)"
+        ]
+      },
+      "nuit-rouge-rejet": {
+        "role": "tertiary",
+        "displayName": "Rouge Rejet (thème sombre)",
+        "canonical": "hsl(0 63% 45%)",
+        "tonalRamp": [
+          "hsl(0 63% 15%)",
+          "hsl(0 63% 25%)",
+          "hsl(0 63% 35%)",
+          "hsl(0 63% 45%)",
+          "hsl(0 63% 55%)",
+          "hsl(0 63% 68%)",
+          "hsl(0 63% 80%)",
+          "hsl(0 63% 95%)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Titre de page",
+        "purpose": "Un seul par écran, toujours suivi d'une ligne de contexte en Gris Légende."
+      },
+      "title": {
+        "displayName": "Titre de carte",
+        "purpose": "Titre d'une carte ou d'un dialogue."
+      },
+      "body": {
+        "displayName": "Corps",
+        "purpose": "Le texte de travail réel de l'application, à 14 px et non 16 px."
+      },
+      "label": {
+        "displayName": "Étiquette",
+        "purpose": "Étiquettes de champ, intitulés de boutons, en-têtes de colonnes."
+      },
+      "micro": {
+        "displayName": "Micro",
+        "purpose": "Pastilles de statut et mentions annexes."
+      }
+    },
+    "shadows": [
+      {
+        "name": "repos-de-carte",
+        "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        "purpose": "Décolle une carte du fond blanc. La seule ombre visible au repos."
+      },
+      {
+        "name": "surface-flottante",
+        "value": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        "purpose": "Liste déroulante d'un Select, qui sort réellement du flux."
+      },
+      {
+        "name": "surface-modale",
+        "value": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+        "purpose": "Dialogue, au-dessus d'un voile noir à 60 % avec flou d'arrière-plan."
+      }
+    ],
+    "motion": [
+      {
+        "name": "transition-couleur",
+        "value": "transition-property: color, background-color, border-color; transition-duration: 150ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Seule transition du système. Un survol change une couleur, jamais une ombre ni une position."
+      },
+      {
+        "name": "accordion",
+        "value": "0.2s ease-out",
+        "purpose": "Ouverture et fermeture d'accordéon (déclaré dans tailwind.config.ts)."
+      },
+      {
+        "name": "pulse-squelette",
+        "value": "animate-pulse sur bg-muted",
+        "purpose": "Écrans de chargement pendant la navigation serveur."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      },
+      {
+        "name": "2xl",
+        "value": "1400px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Bouton principal",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "L'action qui crée ou enregistre. Un seul par écran.",
+      "html": "<button class=\"ds-btn-primary\"><svg class=\"ds-btn-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M5 12h14M12 5v14\"/></svg>Ajouter un bien</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 8px 16px; border: none; border-radius: 7.6px; background: hsl(173 80% 26%); color: hsl(0 0% 100%); font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 500; white-space: nowrap; cursor: pointer; transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1); } .ds-btn-primary:hover { background: hsl(173 80% 26% / 0.9); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(173 80% 26%); } .ds-btn-primary:disabled { opacity: 0.5; pointer-events: none; } .ds-btn-icon { width: 16px; height: 16px; }"
+    },
+    {
+      "name": "Bouton secondaire",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Actions secondaires d'une fiche. Bordure sur fond blanc.",
+      "html": "<button class=\"ds-btn-outline\">Modifier</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 8px 16px; border: 1px solid hsl(214 32% 91%); border-radius: 7.6px; background: hsl(0 0% 100%); color: hsl(222 47% 11%); font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1); } .ds-btn-outline:hover { background: hsl(210 40% 96%); } .ds-btn-outline:focus-visible { outline: none; box-shadow: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(173 80% 26%); }"
+    },
+    {
+      "name": "Pastille de statut",
+      "kind": "chip",
+      "refersTo": "badge-success",
+      "description": "Qualifie une donnée métier. Le libellé français est obligatoire, la couleur seule ne suffit jamais.",
+      "html": "<div class=\"ds-badge-row\"><span class=\"ds-badge ds-badge-success\">Payé</span><span class=\"ds-badge ds-badge-warning\">En attente</span><span class=\"ds-badge ds-badge-destructive\">En retard</span><span class=\"ds-badge ds-badge-secondary\">Terminé</span></div>",
+      "css": ".ds-badge-row { display: flex; flex-wrap: wrap; gap: 8px; } .ds-badge { display: inline-flex; align-items: center; padding: 2px 10px; border: 1px solid transparent; border-radius: 9999px; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 600; line-height: 16px; } .ds-badge-success { background: #d1fae5; color: #065f46; } .ds-badge-warning { background: #fef3c7; color: #78350f; } .ds-badge-destructive { background: hsl(0 72% 51%); color: hsl(0 0% 100%); } .ds-badge-secondary { background: hsl(210 40% 96%); color: hsl(222 47% 11%); }"
+    },
+    {
+      "name": "Champ de saisie",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Étiquette au-dessus, champ pleine largeur, anneau de focus identique à celui des boutons.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-label\" for=\"ds-loyer\">Loyer mensuel</label><input class=\"ds-input\" id=\"ds-loyer\" type=\"text\" placeholder=\"250 000\"></div>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 8px; max-width: 320px; } .ds-label { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 500; line-height: 1; color: hsl(222 47% 11%); } .ds-input { height: 40px; width: 100%; padding: 8px 12px; border: 1px solid hsl(214 32% 91%); border-radius: 7.6px; background: hsl(0 0% 100%); color: hsl(222 47% 11%); font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; } .ds-input::placeholder { color: hsl(215 16% 47%); } .ds-input:focus-visible { outline: none; box-shadow: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(173 80% 26%); } .ds-input:disabled { opacity: 0.5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Carte",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Conteneur par défaut. Se lit par sa bordure, pas par son ombre.",
+      "html": "<div class=\"ds-card\"><h3 class=\"ds-card-title\">Villa Cocody Angré</h3><p class=\"ds-card-desc\">4 pièces · 180 m² · Abidjan</p></div>",
+      "css": ".ds-card { padding: 24px; border: 1px solid hsl(214 32% 91%); border-radius: 9.6px; background: hsl(0 0% 100%); box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); } .ds-card-title { margin: 0 0 6px; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 18px; font-weight: 600; line-height: 1; letter-spacing: -0.025em; color: hsl(222 47% 11%); } .ds-card-desc { margin: 0; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 20px; color: hsl(215 16% 47%); }"
+    },
+    {
+      "name": "Navigation d'en-tête",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Logo, liens dépendants du rôle, identité. Pas d'indicateur de page active aujourd'hui.",
+      "html": "<header class=\"ds-header\"><a class=\"ds-brand\" href=\"#\"><svg class=\"ds-brand-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z\"/><path d=\"M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2\"/><path d=\"M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2\"/><path d=\"M10 6h4M10 10h4M10 14h4M10 18h4\"/></svg>AdeImmo</a><nav class=\"ds-nav\"><a href=\"#\">Biens</a><a href=\"#\">Baux</a><a href=\"#\">Paiements</a><a href=\"#\">Maintenance</a></nav></header>",
+      "css": ".ds-header { display: flex; align-items: center; gap: 24px; height: 64px; padding: 0 24px; border-bottom: 1px solid hsl(214 32% 91%); background: hsl(0 0% 100%); font-family: ui-sans-serif, system-ui, sans-serif; } .ds-brand { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: hsl(222 47% 11%); text-decoration: none; } .ds-brand-icon { width: 20px; height: 20px; color: hsl(173 80% 26%); } .ds-nav { display: flex; align-items: center; gap: 20px; font-size: 14px; } .ds-nav a { color: hsl(215 16% 47%); text-decoration: none; transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1); } .ds-nav a:hover { color: hsl(222 47% 11%); } .ds-nav a:focus-visible { outline: none; box-shadow: 0 0 0 2px hsl(173 80% 26%); border-radius: 5.6px; }"
+    },
+    {
+      "name": "En-tête de tableau",
+      "kind": "custom",
+      "refersTo": "table-head",
+      "description": "Le rendu grand écran d'une liste. En dessous de 1024 px, ce tableau est remplacé par des cartes.",
+      "html": "<table class=\"ds-table\"><thead><tr><th>Bien</th><th>Type</th><th>Loyer</th><th>Statut</th></tr></thead><tbody><tr><td>Villa Cocody Angré</td><td>Villa</td><td>450 000 FCFA</td><td><span class=\"ds-badge ds-badge-default\">Loué</span></td></tr><tr><td>Studio Marcory</td><td>Studio</td><td>120 000 FCFA</td><td><span class=\"ds-badge ds-badge-success\">Disponible</span></td></tr></tbody></table>",
+      "css": ".ds-table { width: 100%; border-collapse: collapse; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; color: hsl(222 47% 11%); } .ds-table th { height: 44px; padding: 0 16px; text-align: left; vertical-align: middle; font-weight: 500; color: hsl(215 16% 47%); border-bottom: 1px solid hsl(214 32% 91%); } .ds-table td { padding: 16px; vertical-align: middle; border-bottom: 1px solid hsl(214 32% 91%); } .ds-table tbody tr { transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1); } .ds-table tbody tr:hover { background: hsl(210 40% 96% / 0.5); } .ds-table tbody tr:last-child td { border-bottom: none; } .ds-badge { display: inline-flex; align-items: center; padding: 2px 10px; border: 1px solid transparent; border-radius: 9999px; font-size: 12px; font-weight: 600; line-height: 16px; } .ds-badge-default { background: hsl(173 80% 26%); color: hsl(0 0% 100%); } .ds-badge-success { background: #d1fae5; color: #065f46; }"
+    },
+    {
+      "name": "État vide",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "Remplace la liste entière. Phrase française complète, jamais un simple « Aucun résultat ».",
+      "html": "<div class=\"ds-empty\"><p>Aucun bien ne correspond à cette recherche.</p></div>",
+      "css": ".ds-empty { padding: 48px; text-align: center; border: 1px solid hsl(214 32% 91%); border-radius: 9.6px; background: hsl(0 0% 100%); box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); } .ds-empty p { margin: 0; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 20px; color: hsl(215 16% 47%); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Le registre de l'agence",
+    "overview": "AdeImmo ressemble à un registre tenu proprement, pas à un tableau de bord qui cherche à impressionner. Un registre a une autorité particulière : on l'ouvre pour savoir, pas pour être séduit. Chaque ligne y vaut par sa lisibilité et par la confiance qu'on lui accorde. C'est la promesse visuelle de cet outil, qui remplace un carnet et un tableur dans une agence où l'information compte plus que la mise en scène.\n\nL'interface est donc dense mais aérée, presque entièrement en gris et en blanc, avec une seule couleur vive qui ne sert qu'à deux choses : désigner l'action principale, et signaler un état. Il n'y a pas d'image décorative, pas de dégradé, pas d'illustration. Les seules images de l'application sont les photos des biens et des interventions, c'est à dire de la donnée, et elles sont présentées comme telle.\n\nLe vert-bleu profond qui porte la marque est le seul geste d'expressivité assumé. Il évoque la fiabilité plutôt que l'immobilier de prestige, et il a été choisi pour ne ressembler ni au bleu bancaire ni au doré des agences haut de gamme.",
+    "keyCharacteristics": [
+      "Une seule couleur d'accent, un vert-bleu profond, rare à l'écran.",
+      "Texte de travail à 14 px, pas 16 px : la densité est un choix, pas un oubli.",
+      "Surfaces plates au repos, l'ombre ne dit que la profondeur réelle.",
+      "Tout état métier porte un mot, jamais une couleur seule.",
+      "Deux rendus par liste : tableau sur grand écran, cartes en dessous de `lg`.",
+      "Interface intégralement en français, accents compris, jusque dans les PDF."
+    ],
+    "rules": [
+      {
+        "name": "La règle de l'accent rare",
+        "body": "Le Teal Profond n'apparaît jamais plus de deux fois sur un écran au repos : le bouton d'action principale, et le logo. Une pastille de statut loué peut s'y ajouter dans une liste. Si un troisième usage décoratif apparaît, c'est l'usage décoratif qui saute, pas la règle.",
+        "section": "colors"
+      },
+      {
+        "name": "La règle du mot avant la couleur",
+        "body": "Aucun état ne se lit à la couleur seule. Chaque pastille contient son libellé français en toutes lettres (« En retard », « Rejeté », « En travaux »). Une pastille vide, une pastille réduite à un point coloré, ou une ligne de tableau teintée sans texte sont interdites.",
+        "section": "colors"
+      },
+      {
+        "name": "La règle des quatorze pixels",
+        "body": "Le texte de travail est à 14 px, pas à 16 px. La densité est assumée : un gestionnaire compare des lignes, il ne lit pas un article. Un écran qui repasse son corps de texte à 16 px casse la cohérence avec tout le reste de l'application.",
+        "section": "typography"
+      },
+      {
+        "name": "La règle du titre accompagné",
+        "body": "Un titre de page n'est jamais seul. Il porte en dessous une phrase courte en Gris Légende qui compte ou qualifie ce que la page montre. Cette phrase est en français et s'accorde au pluriel.",
+        "section": "typography"
+      },
+      {
+        "name": "La règle du zéro défilement horizontal",
+        "body": "Aucun écran ne défile horizontalement à 390 px de large. Quand une donnée ne rentre pas, on change de rendu, on ne fait pas défiler. Cette règle a déjà coûté deux correctifs, elle n'est pas négociable.",
+        "section": "layout"
+      },
+      {
+        "name": "La règle de l'ombre méritée",
+        "body": "Une ombre ne se pose que sur un élément qui flotte vraiment au-dessus du contenu. Un survol ne crée pas d'ombre, il change une couleur de fond. Une carte ne se soulève pas au passage de la souris.",
+        "section": "elevation"
+      },
+      {
+        "name": "La règle de la capsule réservée",
+        "body": "Seules les pastilles de statut sont en capsule. Un bouton en capsule, un champ en capsule ou une carte en capsule brouillent le seul repère de forme du système.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do prendre les libellés et les variantes de pastille dans `frontend/src/lib/format.ts`. C'est le vocabulaire du produit, en français et accentué, et il est déjà aligné avec les valeurs de la base.",
+      "Do écrire tout texte visible en français, accents compris, y compris dans les PDF et les exports CSV. Un « Paye » sans accent sur une quittance remise à un locataire est un défaut, pas un détail.",
+      "Do livrer les deux rendus de liste ensemble, cartes sous `lg` et tableau au-dessus, en gardant le montant et le statut visibles dans les deux.",
+      "Do accompagner un titre de page d'une ligne de contexte en Gris Légende, accordée au pluriel.",
+      "Do laisser l'anneau de focus (`ring-2 ring-ring ring-offset-2`) sur tout contrôle interactif.",
+      "Do masquer entièrement ce qu'un rôle ne peut pas faire, et doubler cette décision d'une garde serveur. L'interface n'est jamais la sécurité.",
+      "Do formuler les états vides en phrase complète qui dit quoi faire ensuite."
+    ],
+    "donts": [
+      "Don't introduire une seconde couleur d'accent, un dégradé ou une police chargée. La palette tient en un accent et cinq gris, et aucune police n'est téléchargée.",
+      "Don't signaler un état par la seule couleur. Le libellé est obligatoire.",
+      "Don't laisser un écran défiler horizontalement à 390 px de large.",
+      "Don't remonter le corps de texte à 16 px « pour la lisibilité ». Le système est à 14 px partout.",
+      "Don't poser une ombre au survol ni soulever une carte. Le survol change un fond, rien d'autre.",
+      "Don't arrondir en capsule autre chose qu'une pastille de statut.",
+      "Don't afficher un bouton désactivé pour une action que le rôle n'a pas le droit d'accomplir.",
+      "Don't décrire l'application comme ayant un thème sombre. Les variables existent, la bascule n'existe pas."
+    ]
+  }
+}
